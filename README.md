@@ -1,5 +1,5 @@
 # Newsly
-# Newsly – AI Tech News Summarizer
+# Newsly – Tech News Summarizer
 
 ## Project Overview
 
