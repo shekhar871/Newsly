@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Tech News</h1>
+
+    <button id="getneews">get news</button>
+    <button id="darkbtn">Dark Mode</button>
+
+    <br><br>
+
+    <input type="text" id="searchbox" placeholder="Search news...">
+
+    <select id="sortbox">
+        <option value="default">Sort: Default</option>
+        <option value="az">Sort: A - Z</option>
+        <option value="za">Sort: Z - A</option>
+    </select>
+
+    <select id="filterbox">
+        <option value="all">Filter: All</option>
+        <option value="liked">Filter: Liked</option>
+    </select>
+
+    <div id="news-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
