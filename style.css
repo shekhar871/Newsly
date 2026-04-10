@@ -5,7 +5,6 @@ body {
   background-color: #f0f2f5;
 }
 
-/* Landing Page with pure basic setup */
 #landing {
   background-color: black;
   color: white;
@@ -66,24 +65,57 @@ body {
   border-bottom: 2px solid #ddd;
 }
 
+#category-bar {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+/* Base button styling */
+.cat-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  margin-right: 15px;
+  cursor: pointer;
+  color: #333;
+}
+
+.cat-btn:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
 .controls input, .controls select {
   padding: 10px;
   border: 1px solid #ccc;
   font-size: 14px;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 
-/* Base App Layout */
 .app-layout {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap; /* wraps to next line if screen is small! Super basic responsive trick */
+  flex-wrap: wrap; 
   padding: 20px;
 }
 
 #news-container {
   width: 65%;
   margin-right: 2%;
+}
+
+#date-header {
+  margin-top: 0;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#news-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .sidebar {
@@ -94,28 +126,31 @@ body {
   border-top: 5px solid #ff9800; 
 }
 
-/* Standard Box Cards */
 .card {
   background-color: white;
   padding: 15px;
   border: 1px solid #ccc;
   border-top: 4px solid #007bff;
   margin-bottom: 20px;
+  width: 45%; 
+  margin-right: 2%;
 }
 
 .card img {
   width: 100%;
-  height: 250px;
+  height: 200px;
   object-fit: cover;
 }
 
 .card h3 {
   margin-top: 10px;
   color: #222;
+  font-size: 18px;
 }
 
 .card p {
   color: #555;
+  font-size: 14px;
 }
 
 .card a {
@@ -131,7 +166,6 @@ body {
   cursor: pointer;
 }
 
-/* Sidebar Styling */
 .sidebar h3 {
   margin-top: 0;
   border-bottom: 2px solid #eee;
@@ -157,7 +191,6 @@ body {
   margin-bottom: 5px;
 }
 
-/* Very simple Dark Mode */
 body.dark {
   background-color: #222;
   color: white;
@@ -172,6 +205,18 @@ body.dark .controls select {
   color: white;
   border: 1px solid #555;
 }
+body.dark .cat-btn {
+  color: white;
+}
+body.dark .cat-btn:hover {
+  color: #4a90e2;
+}
+body.dark #category-bar {
+  border-bottom: 1px solid #555;
+}
+body.dark #date-header {
+  color: white;
+}
 body.dark .card {
   background-color: #333;
   border: 1px solid #555;
@@ -182,6 +227,9 @@ body.dark .card h3 {
 }
 body.dark .card p {
   color: #ccc;
+}
+body.dark .card a {
+  color: lightblue;
 }
 body.dark .sidebar {
   background-color: #333;

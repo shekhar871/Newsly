@@ -2,8 +2,10 @@ const landingSection = document.getElementById("landing");
 const mainAppSection = document.getElementById("main-app");
 const exploreBtn = document.getElementById("explore-btn");
 
-const newsContainer = document.getElementById("news-container");
+const newsGrid = document.getElementById("news-grid");
 const summaryContainer = document.getElementById("summary-container");
+const dateHeader = document.getElementById("date-header"); // Get Date Header
+
 const searchbox = document.getElementById("searchbox");
 const sortbox = document.getElementById("sortbox");
 const filterbox = document.getElementById("filterbox");
@@ -11,8 +13,8 @@ const darkbtn = document.getElementById("darkbtn");
 
 let articles = []; 
 let liked = [];    
+let currentCategory = "technology"; // Default category
 
-// Normal basic function instead of arrow functions
 exploreBtn.addEventListener("click", function() {
     landingSection.style.display = "none";
     mainAppSection.style.display = "block";
@@ -24,19 +26,33 @@ sortbox.addEventListener("change", shownews);
 filterbox.addEventListener("change", shownews);
 darkbtn.addEventListener("click", darkmode);
 
+// Function for category buttons to use
+function changeCategory(categoryName) {
+    currentCategory = categoryName;
+    gettingnews();
+}
+
 async function gettingnews() {
     try {
-        newsContainer.innerHTML = "<p>Loading latest news...</p>";
+        newsGrid.innerHTML = "<p>Loading " + currentCategory + " news...</p>";
         summaryContainer.innerHTML = "<p>Loading...</p>";
       
-        const response = await fetch("https://saurav.tech/NewsAPI/top-headlines/category/technology/us.json");
+        // Very basic string combination to change the URL Category!
+        let url = "https://saurav.tech/NewsAPI/top-headlines/category/" + currentCategory + "/us.json";
+        
+        const response = await fetch(url);
         const data = await response.json();
         
         articles = data.articles;
+
+        // Basic Live Date Logic for Header
+        let today = new Date();
+        dateHeader.textContent = "Top " + currentCategory.toUpperCase() + " Stories - " + today.toDateString();
+
         shownews();
         
     } catch(err) {
-        newsContainer.innerHTML = "<p>Error loading news.</p>";
+        newsGrid.innerHTML = "<p>Error loading news.</p>";
         summaryContainer.innerHTML = "";
     }
 }
@@ -44,7 +60,6 @@ async function gettingnews() {
 function shownews() {
     let result = articles;
 
-    // Basic if tests
     result = result.filter(function(item) {
         if (item.title) {
             return item.title.toLowerCase().includes(searchbox.value.toLowerCase());
@@ -72,18 +87,16 @@ function shownews() {
     }
 
     if (result.length == 0) {
-        newsContainer.innerHTML = "<p>No news found.</p>";
+        newsGrid.innerHTML = "<p>No news found.</p>";
         summaryContainer.innerHTML = "";
         return;
     }
 
-    // Top Summaries sidebar using a basic for string build
     let summaryHTML = "";
     for (let i = 0; i < 5; i++) {
         let item = result[i];
         if (item) {
             let summaryText = "";
-            // simple clear if statements no ternaries!
             if (item.description) {
                 summaryText = item.description.substring(0, 75) + "...";
             } else {
@@ -101,7 +114,6 @@ function shownews() {
     }
     summaryContainer.innerHTML = summaryHTML;
 
-    // News Cards using basic loop
     let newsHTML = "";
     for (let i = 0; i < result.length; i++) {
         let element = result[i];
@@ -137,7 +149,7 @@ function shownews() {
         </div>
         `;
     }
-    newsContainer.innerHTML = newsHTML;
+    newsGrid.innerHTML = newsHTML;
 }
 
 function togglelike(url) {

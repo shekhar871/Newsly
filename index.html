@@ -9,18 +9,27 @@
 <body>
 
     <div id="landing">
-        <h1>Welcome to Tech News</h1>
+        <h1>Welcome to Newsly</h1>
         <p>Get your daily technology news here.</p>
         <button id="explore-btn">Explore Articles</button>
     </div>
 
     <div id="main-app">
         <div class="header">
-            <h1>Tech News App</h1>
+            <h1>Newsly</h1>
             <button id="darkbtn">Dark Mode</button>
         </div>
 
         <div class="controls">
+            <!-- News App Inspiration: Category Menu Bar! -->
+            <div id="category-bar">
+                <button class="cat-btn" onclick="changeCategory('general')">General</button>
+                <button class="cat-btn" onclick="changeCategory('technology')">Technology</button>
+                <button class="cat-btn" onclick="changeCategory('business')">Business</button>
+                <button class="cat-btn" onclick="changeCategory('sports')">Sports</button>
+                <button class="cat-btn" onclick="changeCategory('health')">Health</button>
+            </div>
+
             <input type="text" id="searchbox" placeholder="Search news...">
             
             <select id="sortbox">
@@ -37,7 +46,12 @@
 
         <div class="app-layout">
             <div id="news-container">
-                <p>Loading...</p>
+                <!-- News App Inspiration: Live Date & Active Category Header! -->
+                <h2 id="date-header">Today's Top Stories</h2>
+                
+                <div id="news-grid">
+                    <p>Loading...</p>
+                </div>
             </div>
 
             <div class="sidebar">
