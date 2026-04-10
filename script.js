@@ -102,8 +102,8 @@ function togglelike(url) {
 function darkmode() {
     document.body.classList.toggle("dark");
     if (document.body.classList.contains("dark")) {
-        darkbtn.textContent = "Light Mode ☀️";
+        darkbtn.textContent = "Light Mode";
     } else {
-        darkbtn.textContent = "Dark Mode 🌙";
+        darkbtn.textContent = "Dark Mode";
     }
 }
