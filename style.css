@@ -5,204 +5,112 @@ body {
   background-color: #f0f2f5;
 }
 
-.landing-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+/* Landing Page with pure basic setup */
+#landing {
   background-color: black;
   color: white;
   text-align: center;
+  padding-top: 15vh;
+  height: 85vh;
 }
 
-.landing-content h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
+#landing h1 {
+  font-size: 40px;
 }
 
-.landing-content p {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
+#landing p {
+  font-size: 20px;
 }
 
-.primary-btn {
+#explore-btn {
   padding: 10px 20px;
   font-size: 18px;
   border: 2px solid white;
   background-color: black;
   color: white;
   cursor: pointer;
-  border-radius: 5px;
 }
 
-.primary-btn:hover {
+#explore-btn:hover {
   background-color: white;
   color: black;
 }
 
-.hidden {
-  display: none !important;
+#main-app {
+  display: none; 
 }
 
-/* --- MAIN APP --- */
 .header {
   background-color: black;
   color: white;
   padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .header h1 {
+  display: inline-block;
   margin: 0;
-  font-size: 24px;
 }
 
-.header button {
+#darkbtn {
+  float: right;
   background-color: transparent;
   color: white;
   border: 1px solid white;
   padding: 8px 12px;
   cursor: pointer;
-  border-radius: 5px;
 }
 
 .controls {
   padding: 20px;
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  align-items: center;
   background-color: white;
   border-bottom: 2px solid #ddd;
 }
 
-.controls input, .controls select, .controls button {
+.controls input, .controls select {
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
   font-size: 14px;
+  margin-right: 10px;
 }
 
-.controls button {
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  border: none;
-}
-
-.controls button:hover {
-  background-color: #0056b3;
-}
-
-/* APP LAYOUT - Attractive CSS Grid */
+/* Base App Layout */
 .app-layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; /* wraps to next line if screen is small! Super basic responsive trick */
   padding: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-@media (min-width: 900px) {
-  .app-layout {
-    grid-template-columns: 1fr 300px; /* 300px sidebar on the right */
-  }
 }
 
 #news-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  align-items: start;
+  width: 65%;
+  margin-right: 2%;
 }
 
-@media (min-width: 600px) {
-  #news-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1100px) {
-  #news-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* SIDEBAR - Top Summaries */
 .sidebar {
+  width: 30%;
   background-color: white;
-  padding: 15px;
-  border-radius: 8px;
-  border-top: 5px solid #ff9800; /* Cool accent color */
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  height: fit-content;
-}
-
-.sidebar h3 {
-  margin-top: 0;
-  color: #333;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
-}
-
-.summary-item {
-  margin-bottom: 15px;
-  padding-bottom: 15px;
-  border-bottom: 1px dashed #ccc;
-}
-.summary-item:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-.summary-item strong {
-  display: block;
-  font-size: 14px;
-  color: #1e3c72;
-  margin-bottom: 5px;
-}
-.summary-item p {
-  font-size: 13px;
-  color: #555;
-  margin: 0 0 5px 0;
-}
-.summary-item a {
-  font-size: 12px;
-  color: #e74c3c;
-  text-decoration: none;
-  font-weight: bold;
-}
-.summary-item a:hover {
-  text-decoration: underline;
-}
-
-/* CARDS */
-.card {
-  background-color: white;
-  border-radius: 8px;
   padding: 15px;
   border: 1px solid #ccc;
-  border-top: 4px solid #007bff; /* Color pop */
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  border-top: 5px solid #ff9800; 
+}
+
+/* Standard Box Cards */
+.card {
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-top: 4px solid #007bff;
+  margin-bottom: 20px;
 }
 
 .card img {
   width: 100%;
-  height: 200px;
+  height: 250px;
   object-fit: cover;
-  margin-bottom: 15px;
 }
 
 .card h3 {
-  margin: 0;
-  font-size: 18px;
+  margin-top: 10px;
   color: #222;
 }
 
@@ -210,73 +118,86 @@ body {
   color: #555;
 }
 
+.card a {
+  color: blue;
+}
+
 .card button {
-  margin-top: auto; 
+  margin-top: 10px; 
   padding: 10px 15px;
   background-color: #e74c3c;
   color: white;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  font-weight: bold;
 }
 
-.card a {
+/* Sidebar Styling */
+.sidebar h3 {
+  margin-top: 0;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.summary-item {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.summary-item strong {
   display: block;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  font-size: 14px;
+  color: #000;
+  margin-bottom: 5px;
 }
 
-.placeholder-text {
-  text-align: center;
-  color: #666;
-  margin-top: 50px;
-  grid-column: 1 / -1;
+.summary-item p {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 5px;
 }
 
-/* Dark Mode styles */
+/* Very simple Dark Mode */
 body.dark {
-  background-color: #121212;
-  color: #e0e0e0;
+  background-color: #222;
+  color: white;
 }
 body.dark .controls {
-  background-color: #1e1e1e;
-  border-bottom: 2px solid #333;
+  background-color: #333;
+  border-bottom: 2px solid #444;
 }
 body.dark .controls input, 
 body.dark .controls select {
-  background-color: #333;
+  background-color: #444;
   color: white;
   border: 1px solid #555;
 }
 body.dark .card {
-  background-color: #1e1e1e;
+  background-color: #333;
   border: 1px solid #555;
   border-top: 4px solid #4a90e2;
 }
 body.dark .card h3 {
-  color: #eee;
+  color: white;
 }
 body.dark .card p {
-  color: #aaa;
+  color: #ccc;
 }
-
-/* Dark mode Sidebar */
 body.dark .sidebar {
-  background-color: #1e1e1e;
+  background-color: #333;
+  border: 1px solid #555;
   border-top: 5px solid #e68a00;
-  border-color: #444;
 }
 body.dark .sidebar h3 {
-  color: #eee;
-  border-bottom: 2px solid #444;
+  border-bottom: 2px solid #555;
+  color: white;
 }
 body.dark .summary-item {
-  border-bottom: 1px dashed #444;
+  border-bottom: 1px solid #555;
 }
 body.dark .summary-item strong {
-  color: #8ab4f8;
+  color: white;
 }
 body.dark .summary-item p {
-  color: #aaa;
+  color: #ccc;
 }

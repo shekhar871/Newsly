@@ -3,7 +3,7 @@ const mainAppSection = document.getElementById("main-app");
 const exploreBtn = document.getElementById("explore-btn");
 
 const newsContainer = document.getElementById("news-container");
-const summaryContainer = document.getElementById("summary-container"); // New
+const summaryContainer = document.getElementById("summary-container");
 const searchbox = document.getElementById("searchbox");
 const sortbox = document.getElementById("sortbox");
 const filterbox = document.getElementById("filterbox");
@@ -12,9 +12,10 @@ const darkbtn = document.getElementById("darkbtn");
 let articles = []; 
 let liked = [];    
 
-exploreBtn.addEventListener("click", () => {
-    landingSection.classList.add("hidden");
-    mainAppSection.classList.remove("hidden");
+// Normal basic function instead of arrow functions
+exploreBtn.addEventListener("click", function() {
+    landingSection.style.display = "none";
+    mainAppSection.style.display = "block";
     gettingnews(); 
 });
 
@@ -25,29 +26,31 @@ darkbtn.addEventListener("click", darkmode);
 
 async function gettingnews() {
     try {
-        newsContainer.innerHTML = "<p class='placeholder-text'>Loading latest news for you...</p>";
+        newsContainer.innerHTML = "<p>Loading latest news...</p>";
         summaryContainer.innerHTML = "<p>Loading...</p>";
       
-        const a = await fetch("https://saurav.tech/NewsAPI/top-headlines/category/technology/us.json");
-        const data = await a.json();
+        const response = await fetch("https://saurav.tech/NewsAPI/top-headlines/category/technology/us.json");
+        const data = await response.json();
         
-        console.log("Data successfully received:", data);
         articles = data.articles;
         shownews();
         
     } catch(err) {
-        newsContainer.innerHTML = "<p class='placeholder-text'>Oops! Error loading news. Please try again later.</p>";
+        newsContainer.innerHTML = "<p>Error loading news.</p>";
         summaryContainer.innerHTML = "";
-        console.log("Fetch Error:", err);
     }
 }
-
 
 function shownews() {
     let result = articles;
 
+    // Basic if tests
     result = result.filter(function(item) {
-        return item.title && item.title.toLowerCase().includes(searchbox.value.toLowerCase());
+        if (item.title) {
+            return item.title.toLowerCase().includes(searchbox.value.toLowerCase());
+        } else {
+            return false;
+        }
     });
     
     if (filterbox.value == "liked") {
@@ -60,47 +63,81 @@ function shownews() {
         result = result.sort(function(a, b) {
             return a.title.localeCompare(b.title);
         });
-    }if (sortbox.value == "za") {
+    }
+    
+    if (sortbox.value == "za") {
         result = result.sort(function(a, b) {
             return b.title.localeCompare(a.title);
         });
     }
 
-    if (result.length === 0 && articles.length > 0) {
-        newsContainer.innerHTML = "<p class='placeholder-text'>No news found matching your criteria.</p>";
+    if (result.length == 0) {
+        newsContainer.innerHTML = "<p>No news found.</p>";
         summaryContainer.innerHTML = "";
         return;
     }
 
-    // Populate the Top Summaries sidebar
-    summaryContainer.innerHTML = result.slice(0, 5).map(function(item) {
-        let summaryText = item.description ? item.description.substring(0, 75) + "..." : "Read the full article to learn more.";
-        return `
-        <div class="summary-item">
-            <strong>${item.title}</strong>
-            <p>${summaryText}</p>
-            <a href="${item.url}" target="_blank">Read Article</a>
-        </div>
-        `;
-    }).join("");
+    // Top Summaries sidebar using a basic for string build
+    let summaryHTML = "";
+    for (let i = 0; i < 5; i++) {
+        let item = result[i];
+        if (item) {
+            let summaryText = "";
+            // simple clear if statements no ternaries!
+            if (item.description) {
+                summaryText = item.description.substring(0, 75) + "...";
+            } else {
+                summaryText = "Read the full article to learn more.";
+            }
 
-    newsContainer.innerHTML = result.map(function(element) {
+            summaryHTML = summaryHTML + `
+            <div class="summary-item">
+                <strong>${item.title}</strong>
+                <p>${summaryText}</p>
+                <a href="${item.url}" target="_blank">Read Article</a>
+            </div>
+            `;
+        }
+    }
+    summaryContainer.innerHTML = summaryHTML;
+
+    // News Cards using basic loop
+    let newsHTML = "";
+    for (let i = 0; i < result.length; i++) {
+        let element = result[i];
         let hearticon = "Like";
+        
         if (liked.includes(element.url)) {
             hearticon = "Liked";
         }
+
+        let imageSrc = element.urlToImage;
+        if (!imageSrc) {
+            imageSrc = "https://via.placeholder.com/300";
+        }
         
-        return `
+        let title = element.title;
+        if (!title) {
+            title = "No Title";
+        }
+
+        let description = element.description;
+        if (!description) {
+            description = "Click the link below to read more about this article!";
+        }
+        
+        newsHTML = newsHTML + `
         <div class="card">
-            <img src="${element.urlToImage || "https://via.placeholder.com/300?text=No+Image"}" onerror="this.src='https://via.placeholder.com/300?text=No+Image'" alt="News Cover" />
-            <h3>${element.title || "No Title"}</h3>
-            <p>${element.description || "Click the link below to read more about this article!"}</p>
+            <img src="${imageSrc}" />
+            <h3>${title}</h3>
+            <p>${description}</p>
             <a href="${element.url}" target="_blank">Read more</a>
             <br>
             <button onclick="togglelike('${element.url}')">${hearticon}</button>
         </div>
         `;
-    }).join("");
+    }
+    newsContainer.innerHTML = newsHTML;
 }
 
 function togglelike(url) {
@@ -115,8 +152,10 @@ function togglelike(url) {
 }
 
 function darkmode() {
-    document.body.classList.toggle("dark");
-    if (document.body.classList.contains("dark")) {
+    let body = document.body;
+    body.classList.toggle("dark");
+    
+    if (body.classList.contains("dark")) {
         darkbtn.textContent = "Light Mode";
     } else {
         darkbtn.textContent = "Dark Mode";
