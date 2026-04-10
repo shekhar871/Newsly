@@ -6,6 +6,53 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+/* --- LANDING PAGE --- */
+.landing-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Simple cool gradient background */
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  text-align: center;
+}
+
+.landing-content h1 {
+  font-size: 3rem;
+  margin: 0 0 10px 0;
+  font-weight: bold;
+}
+
+.landing-content p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  opacity: 0.9;
+}
+
+.primary-btn {
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  background-color: #ff9800;
+  color: white;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.primary-btn:hover {
+  background-color: #e68a00;
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --- MAIN APP --- */
 .header {
   background-color: #333;
   color: white;
@@ -81,6 +128,11 @@ body {
   border-radius: 8px;
   padding: 15px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.02);
 }
 
 .card img {
@@ -109,9 +161,10 @@ body {
   text-align: center;
   color: #666;
   margin-top: 50px;
+  grid-column: 1 / -1;
 }
 
-/* Dark Mode */
+/* Dark Mode styles */
 body.dark {
   background-color: #121212;
   color: #e0e0e0;
@@ -132,8 +185,4 @@ body.dark .controls select {
 body.dark .card {
   background-color: #1e1e1e;
   box-shadow: 0 2px 5px rgba(255,255,255,0.05);
-}
-
-body.dark .placeholder-text {
-  color: #aaa;
 }
