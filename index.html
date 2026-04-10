@@ -3,31 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tech News App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Tech News</h1>
+    <div class="header">
+        <h1>Tech News App</h1>
+        <button id="darkbtn">Dark Mode 🌙</button>
+    </div>
 
-    <button id="getneews">get news</button>
-    <button id="darkbtn">Dark Mode</button>
+    <div class="controls">
+        <button id="getneews">Get News</button>
+        <input type="text" id="searchbox" placeholder="Search news...">
+        
+        <select id="sortbox">
+            <option value="default">Sort: Default</option>
+            <option value="az">Sort: A - Z</option>
+            <option value="za">Sort: Z - A</option>
+        </select>
 
-    <br><br>
+        <select id="filterbox">
+            <option value="all">Filter: All</option>
+            <option value="liked">Filter: Liked</option>
+        </select>
+    </div>
 
-    <input type="text" id="searchbox" placeholder="Search news...">
-
-    <select id="sortbox">
-        <option value="default">Sort: Default</option>
-        <option value="az">Sort: A - Z</option>
-        <option value="za">Sort: Z - A</option>
-    </select>
-
-    <select id="filterbox">
-        <option value="all">Filter: All</option>
-        <option value="liked">Filter: Liked</option>
-    </select>
-
-    <div id="news-container"></div>
+    <div id="news-container">
+        <p class="placeholder-text">Click "Get News" to fetch the latest articles.</p>
+    </div>
 
     <script src="script.js"></script>
 </body>
