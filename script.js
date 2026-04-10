@@ -1,9 +1,9 @@
-
 const landingSection = document.getElementById("landing");
 const mainAppSection = document.getElementById("main-app");
 const exploreBtn = document.getElementById("explore-btn");
 
 const newsContainer = document.getElementById("news-container");
+const summaryContainer = document.getElementById("summary-container"); // New
 const searchbox = document.getElementById("searchbox");
 const sortbox = document.getElementById("sortbox");
 const filterbox = document.getElementById("filterbox");
@@ -18,7 +18,6 @@ exploreBtn.addEventListener("click", () => {
     gettingnews(); 
 });
 
-
 searchbox.addEventListener("input", shownews);
 sortbox.addEventListener("change", shownews);
 filterbox.addEventListener("change", shownews);
@@ -27,7 +26,7 @@ darkbtn.addEventListener("click", darkmode);
 async function gettingnews() {
     try {
         newsContainer.innerHTML = "<p class='placeholder-text'>Loading latest news for you...</p>";
-        
+        summaryContainer.innerHTML = "<p>Loading...</p>";
       
         const a = await fetch("https://saurav.tech/NewsAPI/top-headlines/category/technology/us.json");
         const data = await a.json();
@@ -38,6 +37,7 @@ async function gettingnews() {
         
     } catch(err) {
         newsContainer.innerHTML = "<p class='placeholder-text'>Oops! Error loading news. Please try again later.</p>";
+        summaryContainer.innerHTML = "";
         console.log("Fetch Error:", err);
     }
 }
@@ -65,10 +65,24 @@ function shownews() {
             return b.title.localeCompare(a.title);
         });
     }
- if (result.length === 0 && articles.length > 0) {
+
+    if (result.length === 0 && articles.length > 0) {
         newsContainer.innerHTML = "<p class='placeholder-text'>No news found matching your criteria.</p>";
+        summaryContainer.innerHTML = "";
         return;
     }
+
+    // Populate the Top Summaries sidebar
+    summaryContainer.innerHTML = result.slice(0, 5).map(function(item) {
+        let summaryText = item.description ? item.description.substring(0, 75) + "..." : "Read the full article to learn more.";
+        return `
+        <div class="summary-item">
+            <strong>${item.title}</strong>
+            <p>${summaryText}</p>
+            <a href="${item.url}" target="_blank">Read Article</a>
+        </div>
+        `;
+    }).join("");
 
     newsContainer.innerHTML = result.map(function(element) {
         let hearticon = "Like";
@@ -88,6 +102,7 @@ function shownews() {
         `;
     }).join("");
 }
+
 function togglelike(url) {
     if (liked.includes(url)) {
         liked = liked.filter(function(item) {
