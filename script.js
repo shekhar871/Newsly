@@ -1,9 +1,8 @@
-// Page Sections
+
 const landingSection = document.getElementById("landing");
 const mainAppSection = document.getElementById("main-app");
 const exploreBtn = document.getElementById("explore-btn");
 
-// App Controls
 const newsContainer = document.getElementById("news-container");
 const searchbox = document.getElementById("searchbox");
 const sortbox = document.getElementById("sortbox");
@@ -13,25 +12,23 @@ const darkbtn = document.getElementById("darkbtn");
 let articles = []; 
 let liked = [];    
 
-// Transition from Landing Page to Main App
 exploreBtn.addEventListener("click", () => {
     landingSection.classList.add("hidden");
     mainAppSection.classList.remove("hidden");
-    gettingnews(); // Fetch news immediately when app opens!
+    gettingnews(); 
 });
 
-// Adding event listeners for our controls
+
 searchbox.addEventListener("input", shownews);
 sortbox.addEventListener("change", shownews);
 filterbox.addEventListener("change", shownews);
 darkbtn.addEventListener("click", darkmode);
 
-// Updated to use a completely free and unlimited open API instead of the restricted API
 async function gettingnews() {
     try {
         newsContainer.innerHTML = "<p class='placeholder-text'>Loading latest news for you...</p>";
         
-        // This is a free News API wrapper that doesn't block deployed apps and doesn't need an API key
+      
         const a = await fetch("https://saurav.tech/NewsAPI/top-headlines/category/technology/us.json");
         const data = await a.json();
         
@@ -45,47 +42,38 @@ async function gettingnews() {
     }
 }
 
-// Displaying news on the page
+
 function shownews() {
     let result = articles;
-    
-    // Filter by search text
+
     result = result.filter(function(item) {
         return item.title && item.title.toLowerCase().includes(searchbox.value.toLowerCase());
     });
     
-    // Filter by liked articles
     if (filterbox.value == "liked") {
         result = result.filter(function(item) {
             return liked.includes(item.url);
         });
     }
     
-    // Sort A-Z
     if (sortbox.value == "az") {
         result = result.sort(function(a, b) {
             return a.title.localeCompare(b.title);
         });
-    }
-    
-    // Sort Z-A
-    if (sortbox.value == "za") {
+    }if (sortbox.value == "za") {
         result = result.sort(function(a, b) {
             return b.title.localeCompare(a.title);
         });
     }
-
-    // Check if results are empty after filtering
-    if (result.length === 0 && articles.length > 0) {
+ if (result.length === 0 && articles.length > 0) {
         newsContainer.innerHTML = "<p class='placeholder-text'>No news found matching your criteria.</p>";
         return;
     }
 
-    // Creating HTML for each article card
     newsContainer.innerHTML = result.map(function(element) {
-        let hearticon = "Like ♥";
+        let hearticon = "Like";
         if (liked.includes(element.url)) {
-            hearticon = "Liked ♥";
+            hearticon = "Liked";
         }
         
         return `
@@ -100,8 +88,6 @@ function shownews() {
         `;
     }).join("");
 }
-
-// Toggling the like status
 function togglelike(url) {
     if (liked.includes(url)) {
         liked = liked.filter(function(item) {
@@ -110,10 +96,9 @@ function togglelike(url) {
     } else {
         liked.push(url);
     }
-    shownews(); // Refresh display
+    shownews(); 
 }
 
-// Dark mode toggle function
 function darkmode() {
     document.body.classList.toggle("dark");
     if (document.body.classList.contains("dark")) {

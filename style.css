@@ -4,8 +4,6 @@ body {
   padding: 0;
   background-color: #f4f4f4;
 }
-
-/* --- LANDING PAGE --- */
 .landing-page {
   display: flex;
   justify-content: center;
@@ -15,17 +13,14 @@ body {
   color: white;
   text-align: center;
 }
-
 .landing-content h1 {
   font-size: 3rem;
   margin-bottom: 10px;
 }
-
 .landing-content p {
   font-size: 1.2rem;
   margin-bottom: 25px;
 }
-
 .primary-btn {
   padding: 10px 20px;
   font-size: 18px;
@@ -35,7 +30,6 @@ body {
   cursor: pointer;
   border-radius: 5px;
 }
-
 .primary-btn:hover {
   background-color: white;
   color: black;
@@ -45,9 +39,8 @@ body {
   display: none !important;
 }
 
-/* --- MAIN APP --- */
 .header {
-  background-color: #333;
+  background-color:black;
   color: white;
   padding: 15px 20px;
   display: flex;
@@ -149,26 +142,20 @@ body {
   color: #666;
   margin-top: 50px;
   grid-column: 1 / -1;
-}
-
-/* Dark Mode styles */
-body.dark {
+}body.dark {
   background-color: #121212;
   color: #e0e0e0;
 }
-
 body.dark .controls {
   background-color: #1e1e1e;
   border-bottom: 2px solid #333;
 }
-
 body.dark .controls input, 
 body.dark .controls select {
   background-color: #333;
   color: white;
   border: 1px solid #555;
 }
-
 body.dark .card {
   background-color: #1e1e1e;
   border: 1px solid #555;
