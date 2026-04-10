@@ -14,20 +14,19 @@
         <button id="explore-btn">Explore Articles</button>
     </div>
 
-    <div id="main-app">
+    <div id="myapp">
         <div class="header">
             <h1>Newsly</h1>
             <button id="darkbtn">Dark Mode</button>
         </div>
 
         <div class="controls">
-            <!-- News App Inspiration: Category Menu Bar! -->
             <div id="category-bar">
-                <button class="cat-btn" onclick="changeCategory('general')">General</button>
-                <button class="cat-btn" onclick="changeCategory('technology')">Technology</button>
-                <button class="cat-btn" onclick="changeCategory('business')">Business</button>
-                <button class="cat-btn" onclick="changeCategory('sports')">Sports</button>
-                <button class="cat-btn" onclick="changeCategory('health')">Health</button>
+                <button class="cbtn" onclick="clickCat('general')">General</button>
+                <button class="cbtn" onclick="clickCat('technology')">Technology</button>
+                <button class="cbtn" onclick="clickCat('business')">Business</button>
+                <button class="cbtn" onclick="clickCat('sports')">Sports</button>
+                <button class="cbtn" onclick="clickCat('health')">Health</button>
             </div>
 
             <input type="text" id="searchbox" placeholder="Search news...">
@@ -44,9 +43,8 @@
             </select>
         </div>
 
-        <div class="app-layout">
+        <div class="main">
             <div id="news-container">
-                <!-- News App Inspiration: Live Date & Active Category Header! -->
                 <h2 id="date-header">Today's Top Stories</h2>
                 
                 <div id="news-grid">

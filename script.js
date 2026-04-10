@@ -1,175 +1,172 @@
-const landingSection = document.getElementById("landing");
-const mainAppSection = document.getElementById("main-app");
-const exploreBtn = document.getElementById("explore-btn");
+let landing = document.getElementById("landing");
+let myapp = document.getElementById("myapp");
+let explore = document.getElementById("explore-btn");
 
-const newsGrid = document.getElementById("news-grid");
-const summaryContainer = document.getElementById("summary-container");
-const dateHeader = document.getElementById("date-header"); // Get Date Header
+let grid = document.getElementById("news-grid");
+let side = document.getElementById("summary-container");
+let dhead = document.getElementById("date-header"); 
 
-const searchbox = document.getElementById("searchbox");
-const sortbox = document.getElementById("sortbox");
-const filterbox = document.getElementById("filterbox");
-const darkbtn = document.getElementById("darkbtn");
+let searchb = document.getElementById("searchbox");
+let sortb = document.getElementById("sortbox");
+let filters = document.getElementById("filterbox");
+let drk = document.getElementById("darkbtn");
 
 let articles = []; 
 let liked = [];    
-let currentCategory = "technology"; // Default category
+let cat = "technology"; 
 
-exploreBtn.addEventListener("click", function() {
-    landingSection.style.display = "none";
-    mainAppSection.style.display = "block";
-    gettingnews(); 
+explore.addEventListener("click", function() {
+    landing.style.display = "none";
+    myapp.style.display = "block";
+    getneews(); 
 });
 
-searchbox.addEventListener("input", shownews);
-sortbox.addEventListener("change", shownews);
-filterbox.addEventListener("change", shownews);
-darkbtn.addEventListener("click", darkmode);
+searchb.addEventListener("input", loaded);
+sortb.addEventListener("change", loaded);
+filters.addEventListener("change", loaded);
+drk.addEventListener("click", dark);
 
-// Function for category buttons to use
-function changeCategory(categoryName) {
-    currentCategory = categoryName;
-    gettingnews();
+function clickCat(c) {
+    cat = c;
+    getneews();
 }
 
-async function gettingnews() {
+async function getneews() {
     try {
-        newsGrid.innerHTML = "<p>Loading " + currentCategory + " news...</p>";
-        summaryContainer.innerHTML = "<p>Loading...</p>";
+        grid.innerHTML = "<p>Loading " + cat + " news...</p>";
+        side.innerHTML = "<p>Loading...</p>";
       
-        // Very basic string combination to change the URL Category!
-        let url = "https://saurav.tech/NewsAPI/top-headlines/category/" + currentCategory + "/us.json";
+        let url = "https://saurav.tech/NewsAPI/top-headlines/category/" + cat + "/us.json";
         
-        const response = await fetch(url);
-        const data = await response.json();
+        let a = await fetch(url);
+        let b = await a.json();
         
-        articles = data.articles;
+        articles = b.articles;
 
-        // Basic Live Date Logic for Header
-        let today = new Date();
-        dateHeader.textContent = "Top " + currentCategory.toUpperCase() + " Stories - " + today.toDateString();
+        let td = new Date();
+        dhead.textContent = "Top " + cat.toUpperCase() + " Stories - " + td.toDateString();
 
-        shownews();
+        loaded();
         
     } catch(err) {
-        newsGrid.innerHTML = "<p>Error loading news.</p>";
-        summaryContainer.innerHTML = "";
+        grid.innerHTML = "<p>Error.</p>";
+        side.innerHTML = "";
     }
 }
 
-function shownews() {
-    let result = articles;
+function loaded() {
+    let res = articles;
 
-    result = result.filter(function(item) {
-        if (item.title) {
-            return item.title.toLowerCase().includes(searchbox.value.toLowerCase());
+    res = res.filter(function(x) {
+        if (x.title) {
+            return x.title.toLowerCase().includes(searchb.value.toLowerCase());
         } else {
             return false;
         }
     });
     
-    if (filterbox.value == "liked") {
-        result = result.filter(function(item) {
-            return liked.includes(item.url);
+    if (filters.value == "liked") {
+        res = res.filter(function(x) {
+            return liked.includes(x.url);
         });
     }
     
-    if (sortbox.value == "az") {
-        result = result.sort(function(a, b) {
-            return a.title.localeCompare(b.title);
+    if (sortb.value == "az") {
+        res = res.sort(function(o1, o2) {
+            return o1.title.localeCompare(o2.title);
         });
     }
     
-    if (sortbox.value == "za") {
-        result = result.sort(function(a, b) {
-            return b.title.localeCompare(a.title);
+    if (sortb.value == "za") {
+        res = res.sort(function(o1, o2) {
+            return o2.title.localeCompare(o1.title);
         });
     }
 
-    if (result.length == 0) {
-        newsGrid.innerHTML = "<p>No news found.</p>";
-        summaryContainer.innerHTML = "";
+    if (res.length == 0) {
+        grid.innerHTML = "<p>No news.</p>";
+        side.innerHTML = "";
         return;
     }
 
-    let summaryHTML = "";
-    for (let i = 0; i < 5; i++) {
-        let item = result[i];
-        if (item) {
-            let summaryText = "";
-            if (item.description) {
-                summaryText = item.description.substring(0, 75) + "...";
+    let h1 = "";
+    for (let c = 0; c < 5; c++) {
+        let n = res[c];
+        if (n) {
+            let txt = "";
+            if (n.description) {
+                txt = n.description.substring(0, 75) + "...";
             } else {
-                summaryText = "Read the full article to learn more.";
+                txt = "Read article.";
             }
 
-            summaryHTML = summaryHTML + `
+            h1 = h1 + `
             <div class="summary-item">
-                <strong>${item.title}</strong>
-                <p>${summaryText}</p>
-                <a href="${item.url}" target="_blank">Read Article</a>
+                <strong>${n.title}</strong>
+                <p>${txt}</p>
+                <a href="${n.url}" target="_blank">Read Article</a>
             </div>
             `;
         }
     }
-    summaryContainer.innerHTML = summaryHTML;
+    side.innerHTML = h1;
 
-    let newsHTML = "";
-    for (let i = 0; i < result.length; i++) {
-        let element = result[i];
-        let hearticon = "Like";
+    let h2 = "";
+    for (let c = 0; c < res.length; c++) {
+        let el = res[c];
+        let h = "Like";
         
-        if (liked.includes(element.url)) {
-            hearticon = "Liked";
-        }
-
-        let imageSrc = element.urlToImage;
-        if (!imageSrc) {
-            imageSrc = "https://via.placeholder.com/300";
-        }
-        
-        let title = element.title;
-        if (!title) {
-            title = "No Title";
+        if (liked.includes(el.url)) {
+            h = "Liked";
         }
 
-        let description = element.description;
-        if (!description) {
-            description = "Click the link below to read more about this article!";
+        let img = el.urlToImage;
+        if (!img) {
+            img = "https://via.placeholder.com/300";
         }
         
-        newsHTML = newsHTML + `
+        let t = el.title;
+        if (!t) {
+            t = "No Title";
+        }
+
+        let desc = el.description;
+        if (!desc) {
+            desc = "Click below to read!";
+        }
+        
+        h2 = h2 + `
         <div class="card">
-            <img src="${imageSrc}" />
-            <h3>${title}</h3>
-            <p>${description}</p>
-            <a href="${element.url}" target="_blank">Read more</a>
+            <img src="${img}" />
+            <h3>${t}</h3>
+            <p>${desc}</p>
+            <a href="${el.url}" target="_blank">Read more</a>
             <br>
-            <button onclick="togglelike('${element.url}')">${hearticon}</button>
+            <button onclick="toggle('${el.url}')">${h}</button>
         </div>
         `;
     }
-    newsGrid.innerHTML = newsHTML;
+    grid.innerHTML = h2;
 }
 
-function togglelike(url) {
-    if (liked.includes(url)) {
-        liked = liked.filter(function(item) {
-            return item != url;
+function toggle(u) {
+    if (liked.includes(u)) {
+        liked = liked.filter(function(x) {
+            return x != u;
         });
     } else {
-        liked.push(url);
+        liked.push(u);
     }
-    shownews(); 
+    loaded(); 
 }
 
-function darkmode() {
-    let body = document.body;
-    body.classList.toggle("dark");
+function dark() {
+    let bd = document.body;
+    bd.classList.toggle("dark");
     
-    if (body.classList.contains("dark")) {
-        darkbtn.textContent = "Light Mode";
+    if (bd.classList.contains("dark")) {
+        drk.textContent = "Light Mode";
     } else {
-        darkbtn.textContent = "Dark Mode";
+        drk.textContent = "Dark Mode";
     }
 }

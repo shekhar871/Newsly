@@ -4,7 +4,6 @@ body {
   padding: 0;
   background-color: #f0f2f5;
 }
-
 #landing {
   background-color: black;
   color: white;
@@ -12,15 +11,12 @@ body {
   padding-top: 15vh;
   height: 85vh;
 }
-
 #landing h1 {
   font-size: 40px;
 }
-
 #landing p {
   font-size: 20px;
 }
-
 #explore-btn {
   padding: 10px 20px;
   font-size: 18px;
@@ -29,27 +25,22 @@ body {
   color: white;
   cursor: pointer;
 }
-
 #explore-btn:hover {
   background-color: white;
   color: black;
 }
-
-#main-app {
+#myapp {
   display: none; 
 }
-
 .header {
   background-color: black;
   color: white;
   padding: 15px 20px;
 }
-
 .header h1 {
   display: inline-block;
   margin: 0;
 }
-
 #darkbtn {
   float: right;
   background-color: transparent;
@@ -58,21 +49,17 @@ body {
   padding: 8px 12px;
   cursor: pointer;
 }
-
 .controls {
   padding: 20px;
   background-color: white;
   border-bottom: 2px solid #ddd;
 }
-
 #category-bar {
   margin-bottom: 20px;
   border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
 }
-
-/* Base button styling */
-.cat-btn {
+.cbtn {
   background-color: transparent;
   border: none;
   font-size: 16px;
@@ -80,12 +67,10 @@ body {
   cursor: pointer;
   color: #333;
 }
-
-.cat-btn:hover {
+.cbtn:hover {
   color: #007bff;
   text-decoration: underline;
 }
-
 .controls input, .controls select {
   padding: 10px;
   border: 1px solid #ccc;
@@ -93,31 +78,26 @@ body {
   margin-right: 10px;
   margin-bottom: 10px;
 }
-
-.app-layout {
+.main {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap; 
   padding: 20px;
 }
-
 #news-container {
   width: 65%;
   margin-right: 2%;
 }
-
 #date-header {
   margin-top: 0;
   color: #333;
   margin-bottom: 20px;
 }
-
 #news-grid {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-
 .sidebar {
   width: 30%;
   background-color: white;
@@ -125,7 +105,6 @@ body {
   border: 1px solid #ccc;
   border-top: 5px solid #ff9800; 
 }
-
 .card {
   background-color: white;
   padding: 15px;
@@ -135,28 +114,23 @@ body {
   width: 45%; 
   margin-right: 2%;
 }
-
 .card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
 }
-
 .card h3 {
   margin-top: 10px;
   color: #222;
   font-size: 18px;
 }
-
 .card p {
   color: #555;
   font-size: 14px;
 }
-
 .card a {
   color: blue;
 }
-
 .card button {
   margin-top: 10px; 
   padding: 10px 15px;
@@ -165,32 +139,27 @@ body {
   border: none;
   cursor: pointer;
 }
-
 .sidebar h3 {
   margin-top: 0;
   border-bottom: 2px solid #eee;
   padding-bottom: 10px;
 }
-
 .summary-item {
   margin-bottom: 15px;
   border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
 }
-
 .summary-item strong {
   display: block;
   font-size: 14px;
   color: #000;
   margin-bottom: 5px;
 }
-
 .summary-item p {
   font-size: 13px;
   color: #555;
   margin-bottom: 5px;
 }
-
 body.dark {
   background-color: #222;
   color: white;
@@ -205,10 +174,10 @@ body.dark .controls select {
   color: white;
   border: 1px solid #555;
 }
-body.dark .cat-btn {
+body.dark .cbtn {
   color: white;
 }
-body.dark .cat-btn:hover {
+body.dark .cbtn:hover {
   color: #4a90e2;
 }
 body.dark #category-bar {
